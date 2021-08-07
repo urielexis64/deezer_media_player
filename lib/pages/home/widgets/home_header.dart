@@ -1,6 +1,9 @@
 import 'package:deezer_media_player/flutter_inner_drawer.dart';
+import 'package:deezer_media_player/pages/home/widgets/bird.dart';
+import 'package:deezer_media_player/pages/home/widgets/my_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeHeader extends StatelessWidget {
   final GlobalKey<InnerDrawerState> drawerKey;
@@ -14,38 +17,39 @@ class HomeHeader extends StatelessWidget {
     return SliverToBoxAdapter(
       child: AspectRatio(
           aspectRatio: 16 / 11,
-          child: Stack(
-            children: [
-              ClipPath(
-                clipper: _MyCustomClipper(),
-                child: Container(
-                  color: Color(0xff01579b),
+          child: LayoutBuilder(builder: (context, constraints) {
+            return Stack(
+              children: [
+                ClipPath(
+                  clipper: _MyCustomClipper(),
+                  child: Container(
+                    color: Color(0xff01579b),
+                  ),
                 ),
-              ),
-              Positioned(
-                  right: 10,
-                  top: 10,
-                  child: SafeArea(
-                    child: CupertinoButton(
-                      onPressed: () {
-                        drawerKey.currentState!.open();
-                      },
-                      padding: EdgeInsets.zero,
-                      child: CircleAvatar(
-                        backgroundColor: Color(0xfff50057),
-                        child: Text(
-                          'UA',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 24,
-                              color: Colors.white),
-                        ),
-                        radius: 30,
+                Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: SvgPicture.asset(
+                      'assets/pages/home/happy.svg',
+                      width: constraints.maxWidth * .55,
+                    )),
+                Positioned(
+                    right: constraints.maxWidth * .163,
+                    bottom: constraints.maxHeight * .1,
+                    child: Bird(size: constraints.maxWidth * .22)),
+                Positioned(
+                    right: 10,
+                    top: 10,
+                    child: SafeArea(
+                      child: MyAvatar(
+                        onPressed: () {
+                          drawerKey.currentState!.open();
+                        },
                       ),
-                    ),
-                  ))
-            ],
-          )),
+                    )),
+              ],
+            );
+          })),
     );
   }
 }

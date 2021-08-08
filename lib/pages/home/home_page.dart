@@ -1,6 +1,7 @@
 import 'package:deezer_media_player/blocs/home/bloc.dart';
 import 'package:deezer_media_player/flutter_inner_drawer.dart';
 import 'package:deezer_media_player/pages/home/widgets/artist_picker.dart';
+import 'package:deezer_media_player/pages/home/widgets/home_bottom_bar.dart';
 import 'package:deezer_media_player/pages/home/widgets/home_header.dart';
 import 'package:deezer_media_player/pages/home/widgets/search.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
         scaffold: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
+            bottomNavigationBar: HomeBottomBar(),
             body: CustomScrollView(
               slivers: [
                 HomeHeader(drawerKey: _drawerStateKey),
@@ -52,6 +54,9 @@ class _HomePageState extends State<HomePage> {
                         break;
                       case HomeStatus.loading:
                         textStatus = 'Loading artists...';
+                        break;
+                      case HomeStatus.downloading:
+                        textStatus = 'Downloading tracks...';
                         break;
                       default:
                         textStatus = '';

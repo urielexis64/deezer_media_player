@@ -15,7 +15,6 @@ class DeezerAPI {
     try {
       final response = await _dio.get('https://api.deezer.com/genre/0/artists');
       if (response.statusCode == 200) {
-        print(response.data);
         final List<Artist> artists = (response.data['data'] as List)
             .map((json) => Artist.fromJson(json))
             .toList();

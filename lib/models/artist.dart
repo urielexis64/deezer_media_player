@@ -5,18 +5,18 @@ Artist artistFromJson(String str) => Artist.fromJson(json.decode(str));
 String artistToJson(Artist data) => json.encode(data.toJson());
 
 class Artist {
-  Artist({
-    this.id,
-    this.name,
-    this.picture,
-    this.pictureSmall,
-    this.pictureMedium,
-    this.pictureBig,
-    this.pictureXl,
-    this.radio,
-    this.tracklist,
-    this.type,
-  });
+  Artist(
+      {this.id,
+      this.name,
+      this.picture,
+      this.pictureSmall,
+      this.pictureMedium,
+      this.pictureBig,
+      this.pictureXl,
+      this.radio,
+      this.tracklist,
+      this.type,
+      this.selected = false});
 
   int? id;
   String? name;
@@ -28,6 +28,7 @@ class Artist {
   bool? radio;
   String? tracklist;
   String? type;
+  bool selected;
 
   factory Artist.fromJson(Map<String, dynamic> json) => Artist(
         id: json["id"] == null ? null : json["id"],
@@ -43,6 +44,21 @@ class Artist {
         tracklist: json["tracklist"] == null ? null : json["tracklist"],
         type: json["type"] == null ? null : json["type"],
       );
+
+  Artist onSelected() {
+    return Artist(
+        id: id,
+        name: name,
+        picture: picture,
+        pictureSmall: pictureSmall,
+        pictureMedium: pictureMedium,
+        pictureBig: pictureBig,
+        pictureXl: pictureXl,
+        radio: radio,
+        tracklist: tracklist,
+        type: type,
+        selected: !selected);
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,

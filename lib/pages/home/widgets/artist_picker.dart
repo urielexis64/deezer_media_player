@@ -8,9 +8,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ArtistPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final bloc = HomeBloc.of(context);
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (_, state) {
-        final artists = state.artists;
+        final List<Artist> artists = state.artists
+            .where((artist) => artist.name!
+                .toLowerCase()
+                .contains(state.searchText.toLowerCase()))
+            .toList();
         return SliverPadding(
           padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           sliver: SliverGrid(
@@ -23,14 +28,39 @@ class ArtistPicker extends StatelessWidget {
               return Column(
                 children: [
                   Expanded(
-                      child: ClipOval(
-                          child: CachedNetworkImage(
-                    imageUrl: artist.picture!,
-                    placeholder: (_, __) => CupertinoActivityIndicator(),
-                  ))),
+                      child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      bloc.add(OnSelectedEvent(artist.id!));
+                    },
+                    child: ClipOval(
+                        child: Stack(
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: artist.picture!,
+                          placeholder: (_, __) => CupertinoActivityIndicator(),
+                        ),
+                        Positioned.fill(
+                            child: AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          color: artist.selected
+                              ? Colors.black26
+                              : Colors.transparent,
+                          child: Icon(
+                            Icons.check_circle,
+                            color: artist.selected
+                                ? Colors.white
+                                : Colors.transparent,
+                          ),
+                        ))
+                      ],
+                    )),
+                  )),
                   Text(
                     artist.name!,
                     textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               );

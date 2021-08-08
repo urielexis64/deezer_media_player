@@ -13,3 +13,9 @@ class OnSearchEvent extends HomeEvent {
 }
 
 class OnDownloadEvent extends HomeEvent {}
+
+class OnSelectedEvent extends HomeEvent {
+  final int artistId;
+
+  OnSelectedEvent(this.artistId);
+}

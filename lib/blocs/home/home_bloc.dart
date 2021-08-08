@@ -3,6 +3,7 @@ import 'package:deezer_media_player/api/deezer_api.dart';
 import 'package:deezer_media_player/blocs/home/home_events.dart';
 import 'package:deezer_media_player/blocs/home/home_state.dart';
 import 'package:deezer_media_player/models/artist.dart';
+import 'package:deezer_media_player/models/track.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,6 +25,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield state.copyWith(searchText: event.searchText);
     } else if (event is OnSelectedEvent) {
       yield* _mapOnSelected(event);
+    } else if (event is OnDownloadEvent) {
+      yield* _mapOnDownloadTracks(event);
+    }
+  }
+
+  Stream<HomeState> _mapOnDownloadTracks(OnDownloadEvent event) async* {
+    yield state.copyWith(status: HomeStatus.downloading);
+    for (final artist in event.artists) {
+      final List<Track>? tracks =
+          await DeezerAPI.instance.getTracks(artist.id!);
+      print('artist id: ${artist.id}: ${tracks!.length} tracks');
     }
   }
 

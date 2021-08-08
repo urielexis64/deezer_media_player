@@ -1,3 +1,6 @@
+import 'package:deezer_media_player/models/artist.dart';
+import 'package:deezer_media_player/models/track.dart';
+
 abstract class HomeEvent {}
 
 class OnCheckDbEvent extends HomeEvent {}
@@ -12,7 +15,10 @@ class OnSearchEvent extends HomeEvent {
   OnSearchEvent(this.searchText);
 }
 
-class OnDownloadEvent extends HomeEvent {}
+class OnDownloadEvent extends HomeEvent {
+  List<Artist> artists;
+  OnDownloadEvent(this.artists);
+}
 
 class OnSelectedEvent extends HomeEvent {
   final int artistId;

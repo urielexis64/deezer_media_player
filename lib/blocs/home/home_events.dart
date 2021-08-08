@@ -6,6 +6,10 @@ class OnLoadArtistsEvent extends HomeEvent {}
 
 class OnSelectArtistEvent extends HomeEvent {}
 
-class OnSearchEvent extends HomeEvent {}
+class OnSearchEvent extends HomeEvent {
+  final String searchText;
+
+  OnSearchEvent(this.searchText);
+}
 
 class OnDownloadEvent extends HomeEvent {}

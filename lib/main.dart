@@ -1,7 +1,12 @@
+import 'package:deezer_media_player/db/db.dart';
 import 'package:deezer_media_player/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DB.instance.init();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

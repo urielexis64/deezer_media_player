@@ -45,6 +45,11 @@ class _HomePageState extends State<HomePage> {
                     if (state.status == HomeStatus.selecting) {
                       return ArtistPicker();
                     }
+                    if (state.status == HomeStatus.ready) {
+                      return SliverToBoxAdapter(
+                        child: Text('READY'),
+                      );
+                    }
 
                     String textStatus = '';
 

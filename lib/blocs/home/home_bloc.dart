@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:deezer_media_player/api/deezer_api.dart';
 import 'package:deezer_media_player/blocs/home/home_events.dart';
 import 'package:deezer_media_player/blocs/home/home_state.dart';
+import 'package:deezer_media_player/db/artist_store.dart';
 import 'package:deezer_media_player/models/artist.dart';
 import 'package:deezer_media_player/models/track.dart';
 import 'package:flutter/widgets.dart';
@@ -32,11 +33,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Stream<HomeState> _mapOnDownloadTracks(OnDownloadEvent event) async* {
     yield state.copyWith(status: HomeStatus.downloading);
+
+    List<Artist> artists = [];
+
     for (final artist in event.artists) {
-      final List<Track>? tracks =
-          await DeezerAPI.instance.getTracks(artist.id!);
-      print('artist id: ${artist.id}: ${tracks!.length} tracks');
+      final List<Track> tracks = await DeezerAPI.instance.getTracks(artist.id!);
+      artists.add(artist.addTracks(tracks));
     }
+
+    await ArtistsStore.instance.addAll(artists);
+    yield state.copyWith(status: HomeStatus.ready, artists: artists);
   }
 
   Stream<HomeState> _mapOnSelected(OnSelectedEvent event) async* {
@@ -50,15 +56,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Stream<HomeState> _mapCheckDb(OnCheckDbEvent event) async* {
-    await Future.delayed(Duration(seconds: 1));
-    yield state.copyWith(status: HomeStatus.loading);
+    final List<Artist> artists = await ArtistsStore.instance.find();
 
-    final List<Artist>? artists = await DeezerAPI.instance.getArtists();
-
-    if (artists != null) {
-      yield state.copyWith(status: HomeStatus.selecting, artists: artists);
+    if (artists.length >= 5) {
+      yield state.copyWith(status: HomeStatus.ready, artists: artists);
     } else {
-      yield state.copyWith(status: HomeStatus.error);
+      yield state.copyWith(status: HomeStatus.loading);
+
+      final List<Artist>? artists = await DeezerAPI.instance.getArtists();
+
+      if (artists != null) {
+        yield state.copyWith(status: HomeStatus.selecting, artists: artists);
+      } else {
+        yield state.copyWith(status: HomeStatus.error);
+      }
     }
   }
 }

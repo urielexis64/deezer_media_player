@@ -30,7 +30,7 @@ class DeezerAPI {
     }
   }
 
-  Future<List<Track>?> getTracks(int id) async {
+  Future<List<Track>> getTracks(int id) async {
     try {
       final response = await _dio.get('/artist/$id/top?limit=20');
       if (response.statusCode == 200) {
@@ -39,9 +39,9 @@ class DeezerAPI {
             .toList();
         return tracks;
       }
-      return null;
+      return [];
     } catch (e) {
-      return null;
+      return [];
     }
   }
 }

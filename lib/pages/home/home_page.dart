@@ -3,6 +3,7 @@ import 'package:deezer_media_player/flutter_inner_drawer.dart';
 import 'package:deezer_media_player/pages/home/widgets/artist_picker.dart';
 import 'package:deezer_media_player/pages/home/widgets/home_bottom_bar.dart';
 import 'package:deezer_media_player/pages/home/widgets/home_header.dart';
+import 'package:deezer_media_player/pages/home/widgets/my_artists.dart';
 import 'package:deezer_media_player/pages/home/widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         key: _drawerStateKey,
         onTapClose: true,
         rightChild: Container(
-          color: Colors.white,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         scaffold: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -46,9 +47,7 @@ class _HomePageState extends State<HomePage> {
                       return ArtistPicker();
                     }
                     if (state.status == HomeStatus.ready) {
-                      return SliverToBoxAdapter(
-                        child: Text('READY'),
-                      );
+                      return MyArtists();
                     }
 
                     String textStatus = '';

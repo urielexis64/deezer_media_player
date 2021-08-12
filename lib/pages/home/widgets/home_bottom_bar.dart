@@ -10,6 +10,8 @@ class HomeBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = HomeBloc.of(context);
     return BlocBuilder<HomeBloc, HomeState>(builder: (_, state) {
+      if (state.status != HomeStatus.selecting) return SizedBox();
+
       final selectedArtists =
           state.artists.where((artist) => artist.selected).toList();
       return Container(

@@ -14,8 +14,8 @@ class DB {
 
   Future<void> init() async {
     final String dbName = "flutter_rocks.db";
-    final path = (await getApplicationDocumentsDirectory()).path;
-    final dbPath = join(path, dbName);
+    final path2 = await getApplicationDocumentsDirectory();
+    final dbPath = join(path2.path, dbName);
 
     _database = await databaseFactoryIo.openDatabase(dbPath);
   }

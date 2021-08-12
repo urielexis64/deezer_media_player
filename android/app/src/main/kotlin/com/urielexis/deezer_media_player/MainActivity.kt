@@ -1,4 +1,4 @@
-package com.example.deezer_media_player
+package com.urielexis.deezer_media_player
 
 import io.flutter.embedding.android.FlutterActivity
 

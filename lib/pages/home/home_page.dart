@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
+  static final routeName = 'home';
+
   @override
   _HomePageState createState() => _HomePageState();
 }

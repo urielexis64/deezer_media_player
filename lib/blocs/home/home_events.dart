@@ -1,5 +1,4 @@
-import 'package:deezer_media_player/models/artist.dart';
-import 'package:deezer_media_player/models/track.dart';
+part of 'home_bloc.dart';
 
 abstract class HomeEvent {}
 

@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:deezer_media_player/api/deezer_api.dart';
-import 'package:deezer_media_player/blocs/home/home_events.dart';
-import 'package:deezer_media_player/blocs/home/home_state.dart';
 import 'package:deezer_media_player/db/artist_store.dart';
 import 'package:deezer_media_player/models/artist.dart';
 import 'package:deezer_media_player/models/track.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+part 'home_events.dart';
+part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeState.initialState) {

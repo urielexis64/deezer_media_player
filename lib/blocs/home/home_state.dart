@@ -1,5 +1,4 @@
-import 'package:deezer_media_player/models/artist.dart';
-import 'package:equatable/equatable.dart';
+part of 'home_bloc.dart';
 
 enum HomeStatus { cheking, loading, selecting, downloading, ready, error }
 

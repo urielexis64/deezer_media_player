@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.urielexis.deezer_media_player">
+   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
    <application
         android:label="deezer_media_player"
         android:icon="@mipmap/ic_launcher">

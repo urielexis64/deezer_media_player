@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:deezer_media_player/blocs/home/bloc.dart';
+import 'package:deezer_media_player/blocs/home/home_bloc.dart';
 import 'package:deezer_media_player/db/app_theme.dart';
+import 'package:deezer_media_player/pages/music_player/music_player_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,12 @@ class MyArtists extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CupertinoButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final route = MaterialPageRoute(
+                      builder: (_) => MusicPlayerPage(artist: currentArtist),
+                    );
+                    Navigator.push(context, route);
+                  },
                   padding: EdgeInsets.zero,
                   child: Container(
                     decoration: BoxDecoration(

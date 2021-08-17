@@ -1,4 +1,4 @@
-import 'package:deezer_media_player/blocs/home/bloc.dart';
+import 'package:deezer_media_player/blocs/home/home_bloc.dart';
 import 'package:deezer_media_player/flutter_inner_drawer.dart';
 import 'package:deezer_media_player/pages/home/widgets/artist_picker.dart';
 import 'package:deezer_media_player/pages/home/widgets/home_bottom_bar.dart';
@@ -6,6 +6,7 @@ import 'package:deezer_media_player/pages/home/widgets/home_header.dart';
 import 'package:deezer_media_player/pages/home/widgets/my_artists.dart';
 import 'package:deezer_media_player/pages/home/widgets/search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,6 +19,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<InnerDrawerState> _drawerStateKey = GlobalKey();
   final HomeBloc _bloc = HomeBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+        .copyWith(statusBarColor: Colors.transparent));
+  }
 
   @override
   void dispose() {

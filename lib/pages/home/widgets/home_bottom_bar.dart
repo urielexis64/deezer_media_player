@@ -1,4 +1,4 @@
-import 'package:deezer_media_player/blocs/home/bloc.dart';
+import 'package:deezer_media_player/blocs/home/home_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

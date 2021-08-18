@@ -10,7 +10,6 @@ class CurrentTrackView extends StatelessWidget {
     return Container(child: BlocBuilder<MusicPlayerBloc, MusicPlayerState>(
       builder: (context, state) {
         final currentTrack = _bloc.artist.tracks[state.currentIndexTrack];
-        print(state.currentIndexTrack);
         return Column(
           children: [
             SizedBox(height: 10),

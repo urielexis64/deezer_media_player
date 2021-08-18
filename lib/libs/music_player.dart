@@ -10,6 +10,7 @@ class MusicPlayer {
   }
 
   Future<void> dispose() async {
+    await _subscription?.cancel();
     final player = await _completer.future;
     await player.closeAudioSession();
   }
@@ -17,6 +18,10 @@ class MusicPlayer {
   Completer<FlutterSoundPlayer> _completer = Completer();
   ValueNotifier<MusicPlayerStatus> _status =
       ValueNotifier(MusicPlayerStatus.loading);
+
+  Duration? _duration;
+  StreamSubscription? _subscription;
+  Duration? get duration => _duration;
 
   ValueNotifier<MusicPlayerStatus> get status => _status;
 
@@ -34,9 +39,19 @@ class MusicPlayer {
   }
 
   Future<void> play(String uri) async {
+    _status.value = MusicPlayerStatus.loading;
+    _duration = null;
+    await _subscription?.cancel();
     final player = await _completer.future;
     await player.startPlayer(fromURI: uri);
-    _status.value = MusicPlayerStatus.playing;
+
+    player.setSubscriptionDuration(Duration(seconds: 1));
+    _subscription = player.onProgress?.listen((event) {
+      if (_duration == null && event.duration.inSeconds > 0) {
+        _duration = event.duration;
+        _status.value = MusicPlayerStatus.playing;
+      }
+    });
   }
 
   Future<void> resume() async {

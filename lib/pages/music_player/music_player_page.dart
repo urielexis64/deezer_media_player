@@ -39,13 +39,14 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
           width: double.infinity,
           height: double.infinity,
           child: SafeArea(
+              top: false,
               child: Column(
-            children: [
-              CurrentTrackView(),
-              MusicControls(),
-              MusicPlayerProgress()
-            ],
-          )),
+                children: [
+                  CurrentTrackView(),
+                  MusicControls(),
+                  MusicPlayerProgress()
+                ],
+              )),
         ),
       ),
     );

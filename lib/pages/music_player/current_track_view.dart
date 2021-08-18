@@ -12,22 +12,34 @@ class CurrentTrackView extends StatelessWidget {
         final currentTrack = _bloc.artist.tracks[state.currentIndexTrack];
         return Column(
           children: [
-            SizedBox(height: 10),
-            SizedBox(
-              height: 300,
-              width: 300,
+            AspectRatio(
+              aspectRatio: 16 / 17,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: CachedNetworkImage(
-                  imageUrl: currentTrack.album!.coverBig!,
-                  fit: BoxFit.cover,
+                child: ClipPath(
+                  clipper: AlbumClipper(),
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: CachedNetworkImage(
+                          imageUrl: currentTrack.album!.coverBig!,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Container(
+                        color: Colors.black26,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 10),
             Text(currentTrack.album!.title!,
+                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
             Text(currentTrack.title!,
+                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             SizedBox(height: 5),
             Text("${state.currentIndexTrack + 1}/${_bloc.artist.tracks.length}",
@@ -38,4 +50,20 @@ class CurrentTrackView extends StatelessWidget {
       },
     ));
   }
+}
+
+class AlbumClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, size.height);
+    path.arcToPoint(Offset(size.width, size.height),
+        radius: Radius.circular(size.width * 1.75));
+
+    path.lineTo(size.width, 0);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }

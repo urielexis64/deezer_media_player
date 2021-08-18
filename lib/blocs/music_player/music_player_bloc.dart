@@ -57,8 +57,10 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
       final index = state.currentIndexTrack - 1;
       if (index >= 0) {
         yield state.copyWith(currentIndexTrack: index);
-        _play();
+      } else {
+        yield state.copyWith(currentIndexTrack: artist.tracks.length - 1);
       }
+      _play();
     }
   }
 

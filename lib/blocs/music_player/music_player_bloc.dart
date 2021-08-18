@@ -12,30 +12,27 @@ part 'music_player_state.dart';
 
 class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
   final Artist artist;
-  final MusicPlayer _player = MusicPlayer();
+  late MusicPlayer _player;
 
   MusicPlayerBloc(this.artist) : super(MusicPlayerState.initialState()) {
+    _player = MusicPlayer(onFinished: _onNext);
     _play();
   }
 
   MusicPlayer get musicPlayer => this._player;
 
-  /*  _onNext() {
+  _onNext() {
     add(OnNextTrackEvent());
   }
 
   _onPrev() {
     add(OnPrevTrackEvent());
-  } */
+  }
 
   _play() {
     final index = state.currentIndexTrack;
     final track = artist.tracks[index].preview!;
     _player.play(track);
-  }
-
-  _pause() {
-    _player.pause();
   }
 
   @override
@@ -52,8 +49,10 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
       final index = state.currentIndexTrack + 1;
       if (index < artist.tracks.length) {
         yield state.copyWith(currentIndexTrack: index);
-        _play();
+      } else {
+        yield state.copyWith(currentIndexTrack: 0);
       }
+      _play();
     } else if (event is OnPrevTrackEvent) {
       final index = state.currentIndexTrack - 1;
       if (index >= 0) {

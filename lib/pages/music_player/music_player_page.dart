@@ -2,6 +2,7 @@ import 'package:deezer_media_player/blocs/music_player/music_player_bloc.dart';
 import 'package:deezer_media_player/models/artist.dart';
 import 'package:deezer_media_player/pages/music_player/current_track_view.dart';
 import 'package:deezer_media_player/pages/music_player/music_controls.dart';
+import 'package:deezer_media_player/pages/music_player/music_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +40,11 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
           height: double.infinity,
           child: SafeArea(
               child: Column(
-            children: [CurrentTrackView(), MusicControls()],
+            children: [
+              CurrentTrackView(),
+              MusicControls(),
+              MusicPlayerProgress()
+            ],
           )),
         ),
       ),

@@ -1,16 +1,22 @@
-# deezer_media_player
+# Deezer Media Player
 
-A new Flutter project.
+Flutter app media player using the Deezer API. Bloc pattern to manage the state of the app. Sembast DB to save data locally.
 
-## Getting Started
+Packages:
 
-This project is a starting point for a Flutter application.
+-   after_layout
+-   bloc
+-   cached_network_image
+-   cupertino_icons
+-   dio
+-   equatable
+-   flutter_bloc
+-   flutter_sound_lite
+-   flutter_svg
+-   path_provider
+-   provider
+-   sembast
 
-A few resources to get you started if this is your first Flutter project:
+## Demo
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://user-images.githubusercontent.com/47485144/129856730-28e16532-b835-41c8-a015-1bef4dc0a212.mp4
